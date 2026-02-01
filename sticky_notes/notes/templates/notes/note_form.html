@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if note %}
+        Edit Note - Sticky Notes
+    {% else %}
+        Create Note - Sticky Notes
+    {% endif %}
+{% endblock %}
+
+{% block header %}
+    {% if note %}
+        Edit Note
+    {% else %}
+        Create New Note
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <h2>{{ form_title }}</h2>
+        
+        <!-- The Form -->
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Display form errors if any -->
+            {% if form.errors %}
+                <div class="form-errors">
+                    <p><strong>Please correct the following errors:</strong></p>
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+            
+            <!-- Title Field -->
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                {{ form.title }}
+                {% if form.title.help_text %}
+                    <small class="help-text">{{ form.title.help_text }}</small>
+                {% endif %}
+                {% if form.title.errors %}
+                    <div class="field-error">{{ form.title.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <!-- Content Field -->
+            <div class="form-group">
+                <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
+                {{ form.content }}
+                {% if form.content.help_text %}
+                    <small class="help-text">{{ form.content.help_text }}</small>
+                {% endif %}
+                {% if form.content.errors %}
+                    <div class="field-error">{{ form.content.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <!-- Submit Buttons -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    {% if note %}
+                        Update Note
+                    {% else %}
+                        Create Note
+                    {% endif %}
+                </button>
+                <a href="{% url 'note_list' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
