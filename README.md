@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-# sticky_notes_app
-=======
+
 # Sticky Notes Application
 
 A Django-based web application for creating and managing sticky notes.
@@ -63,4 +61,3 @@ python manage.py runserver
 Open your browser and go to:
 - **Main App:** http://localhost:8000/
 - **Admin Panel:** http://localhost:8000/admin/
->>>>>>> e400b0d (Initial commit of the sticky notes app)
