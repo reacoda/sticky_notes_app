@@ -1,40 +1,69 @@
-from django import forms 
-from .models import Note 
+# notes/forms.py
+from django import forms
+from .models import Note
 
 
 class NoteForm(forms.ModelForm):
     """
-    Form for creating and updating Note objects
-
-    This form automatically generates fields based on the Note Model
-    and handles validation 
+    Form for creating and updating Note objects.
+    
+    Includes validation to ensure title and content are not empty.
     """
-
+    
     class Meta:
         model = Note
         fields = ['title', 'content']
-
-        # Custom labels for form fields 
-        labels = {
-            'title': 'Note Title',
-            'content': 'Note Content',
-        }
-
-        # help text that appears below each field
-        help_texts = {
-            'title': 'Enter a short descriptive title for your note (max 200 characters)',
-            'content': 'Write your note content here (optional)',
-        }
-
-        # customise the HTML widgets 
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter note title...'
+                'placeholder': 'Enter note title',
+                'required': True
             }),
             'content': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Write your note here...',
+                'placeholder': 'Enter note content',
                 'rows': 5,
+                'required': True
             })
         }
+        labels = {
+            'title': 'Title',
+            'content': 'Content'
+        }
+    
+    def clean_title(self):
+        """
+        Validate that title is not empty or just whitespace.
+        
+        Returns:
+            str: The cleaned and stripped title
+            
+        Raises:
+            ValidationError: If title is empty or only whitespace
+        """
+        title = self.cleaned_data.get('title')
+        
+        # Check if title exists and is not just whitespace
+        if not title or not title.strip():
+            raise forms.ValidationError('Title cannot be empty.')
+        
+        return title.strip()
+    
+    def clean_content(self):
+        """
+        Validate that content is not empty or just whitespace.
+        
+        Returns:
+            str: The cleaned and stripped content
+            
+        Raises:
+            ValidationError: If content is empty or only whitespace
+        """
+        content = self.cleaned_data.get('content')
+        
+        # Check if content exists and is not just whitespace
+        if not content or not content.strip():
+            raise forms.ValidationError('Content cannot be empty.')
+        
+        return content.strip()
+        
