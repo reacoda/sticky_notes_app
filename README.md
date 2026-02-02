@@ -17,12 +17,18 @@ A Django-based web application for creating and managing sticky notes.
 
 ##  Installation & Setup
 
-### 1. Create Virtual Environment
+### 1. Clone the repository 
 ```bash
-python -m venv venv
+git clone https://github.com/reacoda/sticky_notes_app.git
+cd sticky-notes-app
 ```
 
-### 2. Activate Virtual Environment
+### 2. Create Virtual Environment
+```bash
+python -m venv myvenv
+```
+
+### 3. Activate Virtual Environment
 
 **Windows:**
 ```bash
@@ -34,9 +40,14 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### 4. Install Dependencies
 ```bash
 pip install -r requirements.txt
+```
+
+### 5. Navigate to project directory 
+```bash
+cd sticky_notes
 ```
 
 ### 4. Run Migrations
@@ -61,3 +72,12 @@ python manage.py runserver
 Open your browser and go to:
 - **Main App:** http://localhost:8000/
 - **Admin Panel:** http://localhost:8000/admin/
+
+## Software Design
+
+This project includes comprehensive UML diagrams:
+- **Use Case Diagram:** Shows user interactions with the system
+- **Sequence Diagram:** Illustrates the flow of operations
+- **Class Diagram:** Details the system architecture
+
+All diagrams are available in the `/diagrams` folder.  
