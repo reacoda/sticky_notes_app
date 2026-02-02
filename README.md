@@ -40,34 +40,34 @@ myvenv\Scripts\activate
 source myvenv/bin/activate
 ```
 
-### 4. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 5. Navigate to project directory 
+### 4. Navigate to project directory 
 ```bash
 cd sticky_notes
 ```
 
-### 4. Run Migrations
+### 5. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 6. Run Migrations
 ```bash
 python manage.py migrate
 ```
 
-### 5. Create Superuser (Optional)
+### 7. Create Superuser (Optional)
 ```bash
 python manage.py createsuperuser
 ```
 
 Follow the prompts to create an admin account.
 
-### 6. Run Development Server
+### 8. Run Development Server
 ```bash
 python manage.py runserver
 ```
 
-### 7. Access the Application
+### 9. Access the Application
 
 Open your browser and go to:
 - **Main App:** http://localhost:8000/
