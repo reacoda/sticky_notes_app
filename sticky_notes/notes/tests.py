@@ -163,3 +163,71 @@ class NoteViewTest(TestCase):
         self.assertEqual(Note.objects.count(), initial_count - 1)
         # Check if note no longer exists
         self.assertFalse(Note.objects.filter(id=note_id).exists())
+
+    def test_note_create_empty_title_fails(self):
+        """Test that creating a note with empty title fails"""
+        # Count notes before attempting to create
+        initial_count = Note.objects.count()
+        
+        # Try to POST with empty title
+        response = self.client.post(reverse('note_create'), {
+            'title': '',  # Empty title
+            'content': 'Some content here.'
+        })
+        
+        # Should NOT create a new note
+        self.assertEqual(Note.objects.count(), initial_count)
+        
+        # Should show the form again (status 200, not redirect 302)
+        self.assertEqual(response.status_code, 200)
+        
+        # Should contain error message
+        self.assertContains(response, 'Title cannot be empty')
+    
+    def test_note_create_empty_content_fails(self):
+        """Test that creating a note with empty content fails"""
+        # Count notes before attempting to create
+        initial_count = Note.objects.count()
+        
+        # Try to POST with empty content
+        response = self.client.post(reverse('note_create'), {
+            'title': 'Test Title',
+            'content': ''  # Empty content
+        })
+        
+        # Should NOT create a new note
+        self.assertEqual(Note.objects.count(), initial_count)
+        
+        # Should show the form again (status 200, not redirect 302)
+        self.assertEqual(response.status_code, 200)
+        
+        # Should contain error message
+        self.assertContains(response, 'Content cannot be empty')
+    
+    def test_note_create_whitespace_only_title_fails(self):
+        """Test that creating a note with only whitespace in title fails"""
+        initial_count = Note.objects.count()
+        
+        # Try to POST with whitespace-only title
+        response = self.client.post(reverse('note_create'), {
+            'title': '   ',  # Only spaces
+            'content': 'Some content here.'
+        })
+        
+        # Should NOT create a new note
+        self.assertEqual(Note.objects.count(), initial_count)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_note_create_whitespace_only_content_fails(self):
+        """Test that creating a note with only whitespace in content fails"""
+        initial_count = Note.objects.count()
+        
+        # Try to POST with whitespace-only content
+        response = self.client.post(reverse('note_create'), {
+            'title': 'Test Title',
+            'content': '   '  # Only spaces
+        })
+        
+        # Should NOT create a new note
+        self.assertEqual(Note.objects.count(), initial_count)
+        self.assertEqual(response.status_code, 200)
