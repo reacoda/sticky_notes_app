@@ -20,7 +20,7 @@ A Django-based web application for creating and managing sticky notes.
 ### 1. Clone the repository 
 ```bash
 git clone https://github.com/reacoda/sticky_notes_app.git
-cd sticky-notes-app
+cd sticky_notes_app
 ```
 
 ### 2. Create Virtual Environment
