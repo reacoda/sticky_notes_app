@@ -11,8 +11,8 @@ class Note(models.Model):
         updated_at: datetime when note was last modified (auto-generated)
     """
 
-    title = models.CharField(max_length=200)
-    content = models.TextField(blank=True)
+    title = models.CharField(max_length=200, blank=False, null=False)
+    content = models.TextField(blank=True, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
